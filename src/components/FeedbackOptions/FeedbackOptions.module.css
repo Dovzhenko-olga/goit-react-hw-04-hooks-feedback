@@ -1,0 +1,18 @@
+.control {
+  margin-bottom: 15px;
+}
+.btn {
+  margin-right: 15px;
+  padding: 5px;
+  text-transform: capitalize;
+  border-radius: 3px;
+  border: 1px solid lightblue;
+  outline: none;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: lightsteelblue;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 3px 0px blue;
+  outline: none;
+}
