@@ -1,40 +1,39 @@
-import { Component } from "react";
+import { useState } from "react";
 import './App.css';
 import Section from './components/Section';
 import FeedbackOptions from './components/FeedbackOptions';
 import Statistics from './components/Statistics';
 import Notification from './components/Notification';
 
+export default function App() {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0
-  };
+  const onLeaveFeedback = (feedback) => {
+    switch (feedback) {
+      case 'good':
+        setGood(prevState => prevState + 1);
+        return;
+      case 'neutral':
+        setNeutral(prevState => prevState + 1);
+        return;
+      case 'bad':
+        setBad(prevState => prevState + 1);
+        return;
+      default:
+        return;
+    }
+   }
+  const countTotalFeedback = good + neutral + bad;
+  const countPositiveFeedbackPercentage = Math.round(good / countTotalFeedback * 100);
 
-  onLeaveFeedback = feedback => {
-    this.setState((prevState) => {
-      return {
-        [feedback]: prevState[feedback] + 1,
-      };
-    });
-  };
-
-  render() {
-    const { good, neutral, bad } = this.state;
-    
-    const countTotalFeedback = good + neutral + bad;
-    const countPositiveFeedbackPercentage = Math.round(good / countTotalFeedback * 100);
-    
-    const options = Object.keys(this.state);
-
-    return (
+  return (
       <div className="App">
         <Section title="Please leave your feedback">
           <FeedbackOptions
-          options={options}
-          onLeaveFeedback={this.onLeaveFeedback}
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={onLeaveFeedback}
         />
         </Section>
         
@@ -50,7 +49,4 @@ class App extends Component {
           }
         </Section>
     </div>);
-  }
 }
-
-export default App;
